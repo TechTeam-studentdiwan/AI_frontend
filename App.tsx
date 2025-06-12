@@ -11,7 +11,7 @@ function App(): React.JSX.Element {
 
   return (
    <View>
-    <Text>hellosgnnnnnnnnnnnngr</Text>
+    <Text>hellos</Text>
     
    </View>
   );
