@@ -1,21 +1,17 @@
-
-
 import React from 'react';
-import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import RootNavigator from './src/navigation/RootNavigator';
 
 //npx react-native run-android
-
-function App(): React.JSX.Element {
- 
-  const safePadding = '5%';
-
+const App = () => {
   return (
-   <View>
-    <Text>hellos</Text>
-    
-   </View>
-  );
-}
+    <NavigationContainer>
 
+      <RootNavigator />
+
+      
+    </NavigationContainer>
+  );
+};
 
 export default App;
