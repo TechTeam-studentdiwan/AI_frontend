@@ -5,9 +5,10 @@ import QuickHelp from '../screens/QuickHelp';
 import { MainHelp } from '../screens/MainHelp';
 import SelectLang from '../screens/SelectLang';
 import { Provider } from 'react-redux';
-import { store } from '../store/store';
+
 import "../../global.css";
 import LayoutWrapper from '../components/LayoutWrapper';
+import { store } from '../store/store';
 
 
 const Stack = createNativeStackNavigator();
