@@ -1,20 +1,28 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import React, { useState } from "react";
+import { TouchableOpacity } from "react-native";
+import { View,Text } from "react-native";
+import PromptModel from "../components/PromptModel";
 
 
 export const MainHelp = () => {
-    const navigation = useNavigation();
-  return (
-    <View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        className="flex justify-center items-center"
-      > 
-      <Text className="text-lg font-semibold text-center">Back</Text>
-        
-        </TouchableOpacity>
-    </View>
+  const [modalVisible, setModalVisible] = useState(true); // auto-open
 
-  )
-}
+  return (
+    <View className="flex-1">
+      {/* launcher (top-left) */}
+      <TouchableOpacity
+        className="absolute top-4 left-4 z-10 p-2 rounded-full bg-white shadow"
+        onPress={() => setModalVisible(true)}
+      >
+        <Text>Menu</Text>
+      </TouchableOpacity>
+
+      {/* …other screen content… */}
+
+      <PromptModel
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      />
+    </View>
+  );
+};
