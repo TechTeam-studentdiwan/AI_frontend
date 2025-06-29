@@ -5,7 +5,8 @@ const initialState = {
     loading:false,
     error:null,
     data:[],
-    conversationId:null
+    conversationId:null,
+    lastConversationRes:''
 }
 
 const  conversationSlice = createSlice({
@@ -13,6 +14,12 @@ const  conversationSlice = createSlice({
     initialState,
       reducers: {
     resetConversationState: () => initialState,
+      setLastConversationRes:(state,action)=>{
+            state.lastConversationRes = action.payload
+        },
+      setClearAllMsg:(state,action)=>{
+            state.data = []
+        },
   },
     extraReducers: (builder) => {
     builder
@@ -34,9 +41,7 @@ const  conversationSlice = createSlice({
         state.error = null;
       })
       .addCase(continueConversationThunk.fulfilled, (state, action) => {
-        state.loading = false;
         state.error = null;
-        state.data.push(action.payload?.ai_response)
       })
       .addCase(continueConversationThunk.rejected, (state, action) => {
         state.loading = false;
@@ -50,7 +55,7 @@ const  conversationSlice = createSlice({
       .addCase(getConversationThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.data = action.payload?.messages || []
+        state.data = action.payload || []
       })
       .addCase(getConversationThunk.rejected, (state, action) => {
         state.loading = false;
@@ -59,6 +64,6 @@ const  conversationSlice = createSlice({
   },
     
 })
-
+export const {resetConversationState,setLastConversationRes,setClearAllMsg} =conversationSlice.actions;
 
 export default conversationSlice.reducer
