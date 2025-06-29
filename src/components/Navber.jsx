@@ -3,15 +3,18 @@ import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedLanguage } from "../store/languages/language.slice";
+import { startConversationThunk } from "../store/conversation/conversation.thunk";
+import { resetConversationState } from "../store/conversation/conversation.slice";
 
 const languages = [
- { name: "English", value: "en", label: "English" },
-  { name: "Arabic", value: "ar", label: "العربية" },
-  { name: "Hindi", value: "hi", label: "हिन्दी" },
-  { name: "Malayalam", value: "ml", label: "മലയാളം" },
-  { name: "Filipino", value: "tl", label: "Filipino" },
-  { name: "Urdu", value: "ur", label: "اردو" }
+  { name: "English", value: "en-US", label: "English" },
+  { name: "Arabic", value: "ar-SA", label: "العربية" },
+  { name: "Hindi", value: "hi-IN", label: "हिन्दी" },
+  { name: "Malayalam", value: "ml-IN", label: "മലയാളം" },
+  { name: "Filipino", value: "fil-PH", label: "Filipino" },
+  { name: "Urdu", value: "ur-PK", label: "اردو" },
 ];
+
 
 export default function CommonNavbar() {
   const dispatch = useDispatch();
@@ -25,6 +28,9 @@ export default function CommonNavbar() {
 
   const handleLanguageChange = (lang) => {
     dispatch(setSelectedLanguage(lang));
+    dispatch(resetConversationState())
+    navigation.navigate('Home');
+    
   };
 
   return (
@@ -42,15 +48,15 @@ export default function CommonNavbar() {
           className="bg-blue-600 px-3 py-1 rounded-md"
           onPress={() => navigation.navigate("QuickHelp")}
         >
-          <Text className="text-white text-sm">Quick Help</Text>
+          <Text className="text-white text-sm">Quick Help or Emergency </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="bg-red-600 px-3 py-1 rounded-md"
           onPress={() => navigation.navigate("Emergency")}
         >
           <Text className="text-white text-sm">Emergency</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
   
