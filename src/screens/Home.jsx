@@ -42,10 +42,10 @@ export default function Home() {
   };
 
   return (
-    <View className="flex justify-center items-center w-full h-full bg-white px-4 relative">
+    <View className="flex justify-center items-center w-full h-full bg-white relative">
       {/* 🔄 Fullscreen Transparent Loader Overlay */}
       {localLoading && selectedLangLoading && (
-        <View className="absolute top-0 left-0 w-full h-full bg-black/40 z-50 justify-center items-center px-4">
+        <View className="absolute top-0 left-0 w-full h-full bg-black/40 z-50 justify-center items-center">
           <ActivityIndicator size="large" color="#10B981" />
           <Text className="text-white text-lg mt-4 text-center font-semibold">
             Starting your experience in {selectedLangLoading.name}...

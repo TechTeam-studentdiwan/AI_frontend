@@ -8,6 +8,7 @@ export const startConversationThunk = createAsyncThunk(
   "conversation/start",
   async (_, { rejectWithValue }) => {
     try {
+      console.log("sss");
       const response = await axios.post(
         `${baseUrl}/api/conversations/start`,
         {},
@@ -17,6 +18,7 @@ export const startConversationThunk = createAsyncThunk(
           },
         }
       );
+      console.log(response);
       return response.data;
     } catch (err) {
       // Check for no response (network error)
@@ -39,7 +41,7 @@ export const continueConversationThunk = createAsyncThunk(
   async (data, { rejectWithValue,getState,dispatch }) => {
     try {
      const conversationId = getState().conversation?.conversationId
-     console.log('start');
+     console.log(baseUrl);
      console.log(conversationId);
      console.log(data);
      
@@ -48,8 +50,9 @@ export const continueConversationThunk = createAsyncThunk(
             "Content-Type": "application/json",
           },
         });
-       dispatch(getConversationThunk())
-      return response.data?.ai_response;
+      console.log(response);
+      
+      return response.data?.messages || [];
     } catch (err) {
       console.log(err);
       const message = err.response?.data?.detail || err.message;
@@ -62,7 +65,7 @@ export const getConversationThunk = createAsyncThunk(
   async (_, { rejectWithValue,getState }) => {
     try {
      const conversationId = getState().conversation?.conversationId
-       console.log(conversationId);
+
       const response = await axios.get(`${baseUrl}/api/conversations/${conversationId}`);
       console.log(response);
       

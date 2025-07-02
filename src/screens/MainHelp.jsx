@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
 });
 
 export const MainHelp = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(true);
   const dispatch = useDispatch();
   const messages = useSelector((s) => s.conversation.data) || [];
   const locale = useSelector((s) => s.language.selectLanguage.value);

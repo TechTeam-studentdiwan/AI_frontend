@@ -92,6 +92,67 @@ export default function PromptModel({ visible, onRequestClose }) {
       console.error('Submit error:', err);
     }
   };
+const getDefaultPrompts = (locale) => {
+  switch (locale) {
+    case 'en-US':
+      return [
+        'I’m feeling unwell. Can you help?',
+        'Where can I find the nearest restroom?',
+        'I need help contacting a nurse.',
+        'What time is my next appointment?',
+        'Can you tell me about my medication?',
+      ];
+    case 'hi-IN':
+      return [
+        'मुझे ठीक नहीं लग रहा है। क्या आप मदद कर सकते हैं?',
+        'नज़दीकी टॉयलेट कहाँ है?',
+        'कृपया नर्स को बुलाएँ।',
+        'मेरी अगली अपॉइंटमेंट कब है?',
+        'कृपया मेरी दवा के बारे में बताएं।',
+      ];
+    case 'ar-SA':
+      return [
+        'أشعر أنني لست بخير، هل يمكنك المساعدة؟',
+        'أين أقرب دورة مياه؟',
+        'أحتاج إلى التحدث إلى الممرضة.',
+        'متى موعدي القادم؟',
+        'أخبرني عن دوائي من فضلك.',
+      ];
+    case 'ml-IN':
+      return [
+        'എനിക്ക് അസ്വസ്ഥതയാണ്. സഹായിക്കാമോ?',
+        'സമീപത്തെ ടോയ്ലറ്റ് എവിടെയാണ്?',
+        'ഒരു നഴ്‌സിനെ വിളിക്കണം.',
+        'എന്റെ അടുത്ത അപ്പോയിന്റ്മെന്റ് എപ്പോഴാണ്?',
+        'എന്റെ മരുന്നിനെക്കുറിച്ച് വിശദീകരിക്കാമോ?',
+      ];
+    case 'fil-PH':
+      return [
+        'Masama ang pakiramdam ko. Pwede mo ba akong tulungan?',
+        'Nasaan ang pinakamalapit na CR?',
+        'Kailangan kong makausap ang nurse.',
+        'Anong oras ang appointment ko?',
+        'Paki-explain ang gamot ko.',
+      ];
+    case 'ur-PK':
+      return [
+        'میری طبیعت ٹھیک نہیں ہے، کیا آپ مدد کر سکتے ہیں؟',
+        'قریبی باتھ روم کہاں ہے؟',
+        'مجھے نرس سے بات کرنی ہے۔',
+        'میری اگلی اپوائنٹمنٹ کب ہے؟',
+        'براہ کرم میری دوا کے بارے میں بتائیں۔',
+      ];
+    default:
+      return [
+        'I’m feeling unwell. Can you help?',
+        'Where can I find the nearest restroom?',
+        'I need help contacting a nurse.',
+        'What time is my next appointment?',
+        'Can you tell me about my medication?',
+      ];
+  }
+};
+
 
   const handleStopAndSubmit = async () => {
     await stopRecording();
@@ -217,7 +278,7 @@ export default function PromptModel({ visible, onRequestClose }) {
             <TextInput
               multiline
               placeholder="Type your message…"
-              className="border border-gray-300 rounded-xl p-4 min-h-[140px] text-base"
+              className="border border-gray-300 rounded-xl p-4 min-h-[100px] text-base"
               value={transcript}
               editable={!loading}
               onChangeText={(t) => dispatch(setTranscript(t))}
@@ -242,6 +303,20 @@ export default function PromptModel({ visible, onRequestClose }) {
             )}
           </View>
         )}
+        <View className="mt-4">
+  <View className="flex flex-wrap flex-row gap-2">
+    {getDefaultPrompts(locale).map((prompt, idx) => (
+      <TouchableOpacity
+        key={idx}
+        className="bg-gray-100 border border-gray-300 rounded-xl px-3 py-2"
+        onPress={() => dispatch(setTranscript(prompt))}
+      >
+        <Text className="text-sm text-gray-800">{prompt}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+</View>
+
       </SafeAreaView>
     </Modal>
   );

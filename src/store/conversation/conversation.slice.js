@@ -42,6 +42,8 @@ const  conversationSlice = createSlice({
       })
       .addCase(continueConversationThunk.fulfilled, (state, action) => {
         state.error = null;
+        state.loading =false;
+        state.data = action.payload || []
       })
       .addCase(continueConversationThunk.rejected, (state, action) => {
         state.loading = false;
