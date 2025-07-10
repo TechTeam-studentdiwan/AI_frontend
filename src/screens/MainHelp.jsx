@@ -8,11 +8,8 @@ import { getConversationThunk } from '../store/conversation/conversation.thunk';
 import { setLastConversationRes } from '../store/conversation/conversation.slice';
 
 
-
-
 const SkeletonBubble = () => {
   const shimmerAnim = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -91,19 +88,36 @@ export const MainHelp = () => {
         ref={scrollRef}
         className="py-4 px-10"
       >
-        {messages?.map((msg, index) => (
-          <View
-            key={index}
-            className={`mb-4 max-w-[80%] px-4 py-3 rounded-2xl ${
-              msg.role !== 'user' ? 'bg-gray-200 self-start' : 'bg-emerald-100 self-end'
-            }`}
-          >
-            <Text className="text-base">{msg.content}</Text>
-            <Text className="text-xs text-gray-500 mt-1">
-              {new Date(msg.timestamp).toLocaleTimeString()}
-            </Text>
-          </View>
-        ))}
+        {messages?.map((msg, index) => {
+  const isUser = msg.role === 'user';
+  return (
+    <View
+      key={index}
+      className={`flex-row items-end mb-3 ${isUser ? 'justify-end' : 'justify-start'}`}
+    >
+      {/* Optional Avatar for AI */}
+      {!isUser && (
+        <Icon name="robot-outline" size={28} color="black" />
+      )}
+
+      <View
+        className={`px-4 py-3 rounded-2xl max-w-[75%] ${
+          isUser
+            ? 'bg-emerald-100 rounded-br-none'
+            : 'bg-white border border-gray-300 rounded-bl-none'
+        }`}
+      >
+        <Text className="text-base text-gray-800">{msg.content}</Text>
+      </View>
+
+      {/* Optional Avatar for User */}
+      {isUser && (
+        <Icon name="account-circle" size={28} color="#8bcc7f" />
+      )}
+    </View>
+  );
+})}
+
 
         {/* Show placeholder while waiting for response */}
         {loading && lastConversationRes && (

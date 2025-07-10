@@ -77,3 +77,21 @@ export const getConversationThunk = createAsyncThunk(
   }
 );
 
+export const ConversationThunk = createAsyncThunk(
+  "conversation/ConversationThunk",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${baseUrl}/api/conversations/message`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      return response?.data;
+    } catch (err) {
+      console.log(err);
+      const message = err.response?.data?.detail || err.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+

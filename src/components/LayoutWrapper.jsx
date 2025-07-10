@@ -10,11 +10,6 @@ const LayoutWrapper = ({ children }) => {
   });
 
   const showNavbar = currentRouteName !== "Home";
-  useEffect(()=>{
-    if(currentRouteName  != "MainHelp"){
-      TTS.stop();   
-    }
-  },[])
   return (
     <View className="flex-1 bg-white">
       {showNavbar && <CommonNavbar />}
