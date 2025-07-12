@@ -8,6 +8,7 @@ import { ConversationThunk } from '../store/conversation/conversation.thunk';
 export default function MainVoiceOnly() {
   const [userMessage, setUserMessage] = useState('');
   const [responsiveMessage, setResponsiveMessage] = useState('');
+  const [mood, setMood] = useState('frinedly');
   const [isTTSActive, setIsTTSActive] = useState(false);
   const selectedLang = useSelector((s) => s.language.selectLanguage.value);
   const dispatch = useDispatch();
@@ -51,7 +52,10 @@ export default function MainVoiceOnly() {
       const res = await dispatch(ConversationThunk({ message }));
       const content = res?.payload?.content || '';
       setResponsiveMessage(content);
+      setMood(res?.payload?.mood || 'frinedly')
       setIsTTSActive(true);
+    }else{
+      startListening()
     }
   };
 
@@ -88,6 +92,7 @@ export default function MainVoiceOnly() {
         languageCode={selectedLang}
         onTTSComplete={handleTTSComplete}
         isSpeaking={isTTSActive}
+        mood={mood}
       />
     </View>
   );

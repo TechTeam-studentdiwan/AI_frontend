@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Animated,
   Easing,
+Platform
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -128,8 +129,9 @@ const handleLanguageSelect = async (lang) => {
             minute: "2-digit",
             second: "2-digit",
             hour12: true,
-          })}
+          })} -{Platform.OS}
         </Text>
+
       </Animated.View>
 
       {/* 🤖 Robot Intro Overlay */}
